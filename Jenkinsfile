@@ -9,7 +9,7 @@ pipeline {
                     docker { image 'maven:3.6.3-openjdk-11-slim' }
                 }
                 steps {
-                    sh 'mvn -B verify'
+                    sh 'mvn -B verify install'
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
                 }
                 post {
