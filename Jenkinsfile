@@ -4,12 +4,14 @@ pipeline {
         DOCKER_CREDS = credentials('docker-credentials')
     }
     stages {
+        //Checkout (1 punto)
         stage('Checkout repository') {
             steps {
                 cleanWs()
                 checkout scm
             }
         }
+        //Build (1 punto)
         stage('Build') {
             agent {
                 docker { image 'maven:3.6.3-openjdk-11-slim' }
@@ -49,6 +51,8 @@ pipeline {
         //         }
         //     }
         // }
+
+        //Build docker image (3 puntos)
         stage('Build Docker') {
             steps {
                 copyArtifacts filter: 'target/labmaven-*.jar',
@@ -62,6 +66,8 @@ pipeline {
                 sh 'docker-compose build'
                 }
         }
+
+        //Push docker image (1 Punto)
         stage('Push Docker') {
             steps {
                 script {
@@ -72,6 +78,8 @@ pipeline {
                 }
             }
         }
+
+        //Run Container (1 Punto)
         stage('Run Container') {
             steps {
                 script {
