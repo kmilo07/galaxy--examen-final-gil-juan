@@ -20,6 +20,7 @@ pipeline {
                 sh 'mvn clean'
                 sh 'mvn package'
                 sh 'ls -lR target'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
             }
             post {
                 success {
@@ -48,7 +49,7 @@ pipeline {
                             -Dsonar.java.coveragePlugin=jacoco \
                             -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco.xml \
                             -Dsonar.exclusions=**/*IT.java,**/*TEST.java,**/*Test.java,**/src/it**,**/src/test**,**/gradle/wrapper** \
-                            -Dsonar.java.libraries=target/labmaven-0.0.1-SNAPSHOT.jar"
+                            -Dsonar.java.libraries=target/labmaven-*.jar"
                     }
                 }
             }
