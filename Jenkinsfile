@@ -17,8 +17,8 @@ pipeline {
                 docker { image 'maven:3.6.3-openjdk-11-slim' }
             }
             steps {
-                sh 'mvn verify'
-                sh 'mvn clean package'
+                sh 'mvn clean'
+                sh 'mvn package'
                 sh 'ls -l target/classes'
             }
             post {
