@@ -54,50 +54,50 @@ pipeline {
             }
         } 
 
-        // //Build docker image (3 puntos)
-        // stage('Build Docker') {
-        //     steps {
-        //         copyArtifacts filter: 'target/labmaven-*.jar',
-        //                         fingerprintArtifacts: true,
-        //                         projectName: '${JOB_NAME}',
-        //                         flatten: true,
-        //                         selector: specific('${BUILD_NUMBER}'),
-        //                         target: 'target';
-        //         sh 'docker --version'
-        //         sh 'docker-compose --version'
-        //         sh 'docker-compose build'
-        //         }
-        // }
+        //Build docker image (3 puntos)
+        stage('Build Docker') {
+            steps {
+                copyArtifacts filter: 'target/labmaven-*.jar',
+                                fingerprintArtifacts: true,
+                                projectName: '${JOB_NAME}',
+                                flatten: true,
+                                selector: specific('${BUILD_NUMBER}'),
+                                target: 'target';
+                sh 'docker --version'
+                sh 'docker-compose --version'
+                sh 'docker-compose build'
+                }
+        }
 
-        // //Push docker image (1 Punto)
-        // stage('Push Docker') {
-        //     steps {
-        //         script {
-        //             sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
-        //             sh 'docker tag msmicroservice ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
-        //             sh 'docker push ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
-        //             sh 'docker logout'
-        //         }
-        //     }
-        // }
+        //Push docker image (1 Punto)
+        stage('Push Docker') {
+            steps {
+                script {
+                    sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
+                    sh 'docker tag msmicroservice ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
+                    sh 'docker push ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
+                    sh 'docker logout'
+                }
+            }
+        }
 
-        // //Run Container (1 Punto)
-        // stage('Run Container') {
-        //     steps {
-        //         script {
-        //             sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
-        //             sh 'docker rm galaxyLab -f'
-        //             sh 'docker run -d -p 8080:8080 --name galaxyLab ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
-        //             sh 'docker logout'
-        //         }
-        //     }
-        // }
-        // stage('Test Run Container') {
-        //     steps {
-        //         script {
-        //             sh 'docker ps'
-        //         }
-        //     }
-        // }
+        //Run Container (1 Punto)
+        stage('Run Container') {
+            steps {
+                script {
+                    sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
+                    sh 'docker rm galaxyLab -f'
+                    sh 'docker run -d -p 8080:8080 --name galaxyLab ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
+                    sh 'docker logout'
+                }
+            }
+        }
+        stage('Test Run Container') {
+            steps {
+                script {
+                    sh 'docker ps'
+                }
+            }
+        }
     }
 }
