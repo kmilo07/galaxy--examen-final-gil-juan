@@ -10,15 +10,13 @@ pipeline {
                 }
                 steps {
                     sh 'mvn -B verify install'
-                    sh 'ls'
-                    sh 'ls target'
-                    //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
                 }
-                // post {
-                //     success {
-                //         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
-                //     }
-                // }
+                post {
+                    success {
+                        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+                    }
+                }
             }
             stage('SonarQube') {
                 steps {
@@ -36,10 +34,8 @@ pipeline {
                             -Dsonar.surefire.reportsPath=target/surefire-reports \
                             -Dsonar.jacoco.reportPath=target/jacoco.exec \
                             -Dsonar.java.coveragePlugin=jacoco \
-                            -Dsonar.java.binaries=target/classes \
                             -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco.xml \
-                            -Dsonar.exclusions=**/*IT.java,**/*TEST.java,**/*Test.java,**/src/it**,**/src/test**,**/gradle/wrapper** \
-                            -Dsonar.java.libraries=target/*.jar"
+                            -Dsonar.exclusions=**/*IT.java,**/*TEST.java,**/*Test.java,**/src/it**,**/src/test**,**/gradle/wrapper**"
                         }
                     }
                 }
