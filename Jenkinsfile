@@ -10,13 +10,13 @@ pipeline {
                 }
                 steps {
                     sh 'mvn -B verify install'
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+                    // archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
                 }
-                post {
-                    success {
-                        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
-                    }
-                }
+                // post {
+                //     success {
+                //         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+                //     }
+                // }
             }
             stage('SonarQube') {
                 steps {
@@ -24,8 +24,8 @@ pipeline {
                         def scannerHome = tool 'scanner-default'
                         withSonarQubeEnv('sonar-server') {
                             sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=labmaven01 \
-                            -Dsonar.projectName=labmaven01 \
+                            -Dsonar.projectKey=finalmaven01 \
+                            -Dsonar.projectName=finalmaven01 \
                             -Dsonar.sources=src/main \
                             -Dsonar.sourceEncoding=UTF-8 \
                             -Dsonar.language=java \
