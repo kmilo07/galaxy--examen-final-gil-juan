@@ -10,6 +10,7 @@ pipeline {
                 }
                 steps {
                     sh 'mvn -B verify install'
+                    sh 'ls'
                     //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
                 }
                 // post {
