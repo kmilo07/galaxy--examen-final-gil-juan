@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh 'mvn clean'
                 sh 'mvn package'
-                sh 'ls -l target/classes'
+                sh 'ls -lR target'
             }
             post {
                 success {
