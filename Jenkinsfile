@@ -26,11 +26,6 @@ pipeline {
             }
         }
         // stage('SonarQube') {
-        //     agent {
-        //         docker {
-        //         image 'maven:3.6.3-openjdk-11-slim'
-        //         }
-        //     } 
         //     steps {
         //         script{
         //             def scannerHome = tool 'scanner-default'
@@ -84,6 +79,13 @@ pipeline {
                     sh 'docker rm galaxyLab -f'
                     sh 'docker run -d -p 8080:8080 --name galaxyLab ${DOCKER_CREDS_USR}/msmicroservice:$BUILD_NUMBER'
                     sh 'docker logout'
+                }
+            }
+        }
+        stage('Test Run Container') {
+            steps {
+                script {
+                    sh 'docker ps'
                 }
             }
         }
