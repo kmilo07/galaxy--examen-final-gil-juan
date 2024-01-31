@@ -49,7 +49,7 @@ pipeline {
                             -Dsonar.java.coveragePlugin=jacoco \
                             -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco.xml \
                             -Dsonar.exclusions=**/*IT.java,**/*TEST.java,**/*Test.java,**/src/it**,**/src/test**,**/gradle/wrapper** \
-                            -Dsonar.java.libraries=target/labmaven-*.jar"
+                            -Dsonar.java.libraries=*/labmaven-*.jar"
                     }
                 }
             }
