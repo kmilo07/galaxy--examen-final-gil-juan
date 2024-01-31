@@ -42,7 +42,8 @@ pipeline {
                             -Dsonar.language=java \
                             -Dsonar.tests=src/test \
                             -Dsonar.junit.reportsPath=target/surefire-reports \
-                            -Dsonar.surefire.reportsPath=target/surefire-reports"
+                            -Dsonar.surefire.reportsPath=target/surefire-reports \
+                            -Dsonar.java.binaries=target/classes/"
                     }
                 }
             }
